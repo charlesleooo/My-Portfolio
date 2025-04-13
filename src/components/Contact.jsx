@@ -1,10 +1,8 @@
-import React, { useState, useRef } from 'react';
+// Contact.jsx
+import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import emailjs from '@emailjs/browser';
 
 const Contact = ({ darkMode }) => {
-  const form = useRef();
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,53 +21,34 @@ const Contact = ({ darkMode }) => {
     setSuccess(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
 
-    try {
-      const result = await emailjs.sendForm(
-        'service_1tc6lw5',
-        'template_j4p1vj6',
-        form.current,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY // ✅ secure usage from .env
-      );
-
-      if (result.status === 200 || result.text === 'OK') {
-        setSuccess(true);
-        setFormData({
-          user_name: '',
-          user_email: '',
-          subject: '',
-          message: ''
-        });
-        form.current.reset();
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
-      setError('Sorry, there was an error sending your message. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
+    // Simulate a successful form submission
+    setTimeout(() => {
+      setSuccess(true);
+      setFormData({
+        user_name: '',
+        user_email: '',
+        subject: '',
+        message: ''
+      });
+    }, 2000);
   };
 
   return (
-    <section id="contact" className={`contact hidden ${darkMode ? 'dark-bg' : ''}`}>
+    <section id="contact" className={`contact py-5 ${darkMode ? 'dark-bg' : ''}`}>
       <div className="container">
         <div className="row">
           <div className="col-12 text-center mb-5">
-            <h2 className="section-title hidden">Get In Touch</h2>
-            <div className="section-divider hidden"></div>
+            <h2 className="section-title">Get In Touch</h2>
+            <div className="section-divider"></div>
           </div>
         </div>
 
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-4 mb-4 mb-lg-0">
-            <div className={`contact-info p-4 rounded shadow-sm hidden ${darkMode ? 'dark-card' : 'light-card'}`}>
+            <div className={`contact-info p-4 rounded shadow-sm ${darkMode ? 'dark-card' : 'light-card'}`}>
               <h3 className="h4 mb-4">Contact Information</h3>
 
               <div className="contact-item d-flex align-items-center mb-3">
@@ -120,10 +99,10 @@ const Contact = ({ darkMode }) => {
           </div>
 
           <div className="col-md-8 col-lg-8">
-            <div className={`contact-form p-4 rounded shadow-sm hidden ${darkMode ? 'dark-card' : 'light-card'}`}>
+            <div className={`contact-form p-4 rounded shadow-sm ${darkMode ? 'dark-card' : 'light-card'}`}>
               <h3 className="h4 mb-4">Send Me a Message</h3>
 
-              <form ref={form} onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 {error && <div className="alert alert-danger">{error}</div>}
                 {success && <div className="alert alert-success">Thank you for your message! I will get back to you soon.</div>}
 
@@ -181,8 +160,8 @@ const Contact = ({ darkMode }) => {
                 </div>
 
                 <div className="text-center">
-                  <button type="submit" className="btn btn-primary px-4 py-2" disabled={loading}>
-                    {loading ? 'Sending...' : 'Send Message'}
+                  <button type="submit" className="btn btn-primary px-4 py-2">
+                    Send Message
                   </button>
                 </div>
               </form>

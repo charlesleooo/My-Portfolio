@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const About = ({ darkMode }) => {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const hiddenElements = entry.target.querySelectorAll('.hidden');
+          hiddenElements.forEach(el => {
+            el.classList.add('show');
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <section id="about" className={`about hidden ${darkMode ? 'dark-bg' : ''}`}>
+    <section ref={sectionRef} id="about" className={`about ${darkMode ? 'dark-bg' : ''}`}>
       <div className="container">
         <div className="row">
           <div className="col-12 text-center mb-5">

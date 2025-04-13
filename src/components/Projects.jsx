@@ -51,19 +51,19 @@ const Projects = ({ darkMode }) => {
     : projects.filter(project => project.category === filter);
 
   return (
-    <section id="projects" className={`projects hidden ${darkMode ? 'dark-bg' : ''}`}>
+    <section id="projects" className={`projects py-5 ${darkMode ? 'dark-bg' : ''}`}>
       <div className="container">
         <div className="row">
           <div className="col-12 text-center mb-5">
-            <h2 className="section-title hidden">My Projects</h2>
-            <div className="section-divider hidden"></div>
+            <h2 className="section-title">My Projects</h2>
+            <div className="section-divider"></div>
           </div>
         </div>
 
         <div className="row">
           {filteredProjects.map(project => (
             <div className="col-md-6 col-lg-4 mb-4" key={project.id}>
-              <div className="project-card hidden">
+              <div className="project-card">
                 <div className="project-image">
                   <img 
                     src={process.env.PUBLIC_URL + project.image} 

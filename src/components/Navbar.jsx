@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Navbar = ({ darkMode, toggleDarkMode }) => {
+const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   
   useEffect(() => {
@@ -17,7 +17,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   }, []);
   
   return (
-    <nav className={`navbar navbar-expand-lg fixed-top ${scrolled ? 'scrolled' : ''} ${darkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-light'}`}>
+    <nav className={`navbar navbar-expand-lg fixed-top navbar-dark ${scrolled ? 'scrolled' : ''}`}>
       <div className="container">
         <a className="navbar-brand" href="#home">My Portfolio</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
